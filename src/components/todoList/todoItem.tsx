@@ -1,5 +1,5 @@
-import { useAppDispatch } from "../hook";
-import { removeTodo } from "../store/todoSlice";
+import { useAppDispatch } from "../../hook";
+import { removeTodo, toggleComplete } from "../../store/todoSlice";
 import React from "react";
 
 interface TodoItemProps {
