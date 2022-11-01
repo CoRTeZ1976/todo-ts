@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import './App.css';
 import { useAppDispatch } from "./hook";
 import { addTodo } from "./store/todoSlice";
-import NewTodoForm from "./components/form/NewTodoForm";
+import NewTodoForm from "./components/Form/NewTodoForm";
+import TodoList from "./components/TodoList/TodoList";
+import { Header } from "./components/Header/Header";
+import { Box } from "@mui/material";
 
 function App() {
   const [text, setText] = useState('');
@@ -17,11 +20,19 @@ function App() {
   
   return (
       <div className='App'>
-        <NewTodoForm
-            value={text}
-            updateText={setText}
-            handleAction={handleAction}
-        />
+          <Box
+              display='flex'
+              flexDirection='column'
+              width='50%'
+          >
+              <Header/>
+              <NewTodoForm
+                  value={text}
+                  updateText={setText}
+                  handleAction={handleAction}
+              />
+              <TodoList/>
+          </Box>
       </div>
   );
 }
