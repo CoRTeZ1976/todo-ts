@@ -28,6 +28,9 @@ const NewTodoForm: React.FC<NewTodoForm> = ({value, updateText, handleAction}) =
 				onChange={(e) => updateText(e.target.value)}
 				name='new todo'
 				label='new todo'
+				multiline
+				maxRows={5}
+				sx={{width: '100%'}}
 			/>
 			<Button
 				startIcon={<Add/>}

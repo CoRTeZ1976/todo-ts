@@ -1,17 +1,23 @@
 import { useAppDispatch } from "../../hook";
-import { removeTodo, toggleComplete, editTodo} from "../../store/todoSlice";
-import React from "react";
-import { Box, Checkbox, IconButton, Paper, Stack, Typography } from "@mui/material";
-import { Delete, Edit } from "@mui/icons-material";
+import { toggleComplete, editTodo as onEditTodo} from "../../store/todoSlice";
+import React, { FormEvent, useState } from "react";
+import { Box, Checkbox, IconButton, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Edit } from "@mui/icons-material";
 
-interface TodoItemProps {
+interface EditTodoItemProps {
 	id: string,
 	title: string,
 	completed: boolean,
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ id, title, completed}) => {
+const EditTodoItem: React.FC<EditTodoItemProps> = ({ id, title, completed}) => {
 	const dispatch = useAppDispatch();
+	const [editTodo, setEditTodo] = useState(id)
+	
+	const onTextFieldChangeCapture = (event: FormEvent<HTMLDivElement>) => {
+		const {value, name} = event.target;
+		
+	};
 	
 	return (
 		<Paper
@@ -44,25 +50,23 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, title, completed}) => {
 					gutterBottom
 					margin='0 20px'
 				>
-					{title}
+					<TextField
+						value={title}
+						name='new todo'
+						label='new todo'
+						onChange={() => onEditTodo(id)}/>
 				</Typography>
 			</Box>
 			<Stack direction='row' spacing={1}>
 				<IconButton
 					aria-label="edit"
-					onClick={() => dispatch(editTodo(id))}
+					onClick={() => dispatch(onEditTodo(id))}
 				>
 					<Edit />
-				</IconButton>
-				<IconButton
-					aria-label="delete"
-					onClick={() => dispatch(removeTodo(id))}
-				>
-					<Delete />
 				</IconButton>
 			</Stack>
 		</Paper>
 	);
 };
 
-export default TodoItem;
+export default EditTodoItem;
