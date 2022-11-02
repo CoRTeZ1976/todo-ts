@@ -1,23 +1,16 @@
-import { useAppDispatch } from "../../hook";
-import { toggleComplete, editTodo as onEditTodo} from "../../store/todoSlice";
-import React, { FormEvent, useState } from "react";
-import { Box, Checkbox, IconButton, Paper, Stack, TextField, Typography } from "@mui/material";
+import { editTodo, /*saveTodo,*/ Todo } from "../../store/todoSlice";
+import React from "react";
+import { Box, IconButton, Paper, Stack, TextField, Typography } from "@mui/material";
 import { Edit } from "@mui/icons-material";
+import { useAppDispatch } from "../../hook";
 
 interface EditTodoItemProps {
-	id: string,
-	title: string,
-	completed: boolean,
+	todo: Todo,
+	onChangeTodo: (title: { title: string }) => void,
 }
 
-const EditTodoItem: React.FC<EditTodoItemProps> = ({ id, title, completed}) => {
+const EditTodoItem: React.FC<EditTodoItemProps> = ({todo, onChangeTodo}) => {
 	const dispatch = useAppDispatch();
-	const [editTodo, setEditTodo] = useState(id)
-	
-	const onTextFieldChangeCapture = (event: FormEvent<HTMLDivElement>) => {
-		const {value, name} = event.target;
-		
-	};
 	
 	return (
 		<Paper
@@ -31,38 +24,34 @@ const EditTodoItem: React.FC<EditTodoItemProps> = ({ id, title, completed}) => {
 				justifyContent: 'space-between',
 				alignContent: 'center',
 				gap: 2,
-				opacity: completed ? 0.5 : 1,
+				opacity: todo.completed ? 0.5 : 1,
 			}}
 		>
 			<Box
-				textAlign='left'
-				display='flex'
-				alignItems='center'
+				textAlign="left"
+				display="flex"
+				alignItems="center"
 			>
-				<Checkbox
-					checked={completed}
-					onChange={() => dispatch(toggleComplete(id))}
-				/>
 				<Typography
-					sx={{cursor: 'pointer', textDecorationLine: completed ? 'line-through' : null}}
-					variant='h5'
-					component='h5'
+					sx={{cursor: 'pointer', textDecorationLine: todo.completed ? 'line-through' : null}}
+					variant="h5"
+					component="h5"
 					gutterBottom
-					margin='0 20px'
+					margin="0 20px"
 				>
 					<TextField
-						value={title}
-						name='new todo'
-						label='new todo'
-						onChange={() => onEditTodo(id)}/>
+						value={todo.title}
+						name="new todo"
+						label="new todo"
+						onChange={() => dispatch(editTodo(todo.id))}/>
 				</Typography>
 			</Box>
-			<Stack direction='row' spacing={1}>
+			<Stack direction="row" spacing={1}>
 				<IconButton
 					aria-label="edit"
-					onClick={() => dispatch(onEditTodo(id))}
+					/*onClick={() => dispatch(saveTodo(todo.id, todo.title))}*/
 				>
-					<Edit />
+					<Edit/>
 				</IconButton>
 			</Stack>
 		</Paper>
