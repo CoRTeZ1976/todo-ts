@@ -2,8 +2,7 @@ import { useAppSelector } from "../../hook";
 import TodoItem from "./TodoItem";
 import React from "react";
 import { Box } from "@mui/material";
-
-
+import EditTodoItem from "./EditTodoItem";
 
 const TodoList: React.FC = () => {
 	const todos = useAppSelector(state => state.todos.list);
@@ -11,16 +10,14 @@ const TodoList: React.FC = () => {
 	return (
 		<Box>
 			{todos.map(todo => {
-				/*console.log(todo.id);
-				if (todo.id === editTodoId) {
+				if (todo.onEdit) {
 					return (
 						<EditTodoItem
-						key={todo.id}
-						todo={todo}
-						onChangeTodo={onChangeTodo}
-					/>);
-				}*/
-				
+							key={todo.id}
+							{...todo}
+						/>
+					);
+				}
 				return (
 					<TodoItem
 						key={todo.id}
@@ -32,6 +29,5 @@ const TodoList: React.FC = () => {
 		</Box>
 	);
 };
-
 
 export default TodoList;

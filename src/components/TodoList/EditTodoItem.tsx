@@ -1,16 +1,23 @@
-import { editTodo, /*saveTodo,*/ Todo } from "../../store/todoSlice";
-import React from "react";
-import { Box, IconButton, Paper, Stack, TextField, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { Box, IconButton, Paper, Stack, TextField } from "@mui/material";
 import { Edit } from "@mui/icons-material";
+import { saveTodo } from "../../store/todoSlice";
 import { useAppDispatch } from "../../hook";
 
 interface EditTodoItemProps {
-	todo: Todo,
-	onChangeTodo: (title: { title: string }) => void,
+	id: string,
+	title: string,
 }
 
-const EditTodoItem: React.FC<EditTodoItemProps> = ({todo, onChangeTodo}) => {
+const EditTodoItem: React.FC<EditTodoItemProps> = ({id, title}) => {
 	const dispatch = useAppDispatch();
+	const [currTitle, updateTitle] = useState(title);
+	
+		const handleAction = () => {
+		if (currTitle.trim().length) {
+			dispatch(saveTodo({id: id, title: currTitle}));
+		}
+	};
 	
 	return (
 		<Paper
@@ -24,7 +31,6 @@ const EditTodoItem: React.FC<EditTodoItemProps> = ({todo, onChangeTodo}) => {
 				justifyContent: 'space-between',
 				alignContent: 'center',
 				gap: 2,
-				opacity: todo.completed ? 0.5 : 1,
 			}}
 		>
 			<Box
@@ -32,24 +38,17 @@ const EditTodoItem: React.FC<EditTodoItemProps> = ({todo, onChangeTodo}) => {
 				display="flex"
 				alignItems="center"
 			>
-				<Typography
-					sx={{cursor: 'pointer', textDecorationLine: todo.completed ? 'line-through' : null}}
-					variant="h5"
-					component="h5"
-					gutterBottom
-					margin="0 20px"
-				>
-					<TextField
-						value={todo.title}
-						name="new todo"
-						label="new todo"
-						onChange={() => dispatch(editTodo(todo.id))}/>
-				</Typography>
+				<TextField
+					value={currTitle}
+					name="description"
+					label="description"
+					onChange={(e) => updateTitle(e.target.value)}
+				/>
 			</Box>
 			<Stack direction="row" spacing={1}>
 				<IconButton
 					aria-label="edit"
-					/*onClick={() => dispatch(saveTodo(todo.id, todo.title))}*/
+					onClick={handleAction}
 				>
 					<Edit/>
 				</IconButton>

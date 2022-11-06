@@ -4,6 +4,7 @@ export type Todo = {
 	id: string,
 	title: string,
 	completed: boolean,
+	onEdit: boolean,
 };
 
 type TodosState = {
@@ -24,12 +25,12 @@ const todoSlice = createSlice({
 				id: new Date().toISOString(),
 				title: action.payload,
 				completed: false,
+				onEdit: false,
 			});
 		},
 		
 		toggleComplete(state, action: PayloadAction<string>) {
 			const toggleTodo = state.list.find(todo => todo.id === action.payload);
-			console.log(toggleTodo);
 			if (toggleTodo) {
 				toggleTodo.completed = !toggleTodo.completed;
 			}
@@ -40,19 +41,22 @@ const todoSlice = createSlice({
 		},
 		
 		editTodo(state, action: PayloadAction<string>) {
-			const currTodo = state.list.find(todo => todo.id === action.payload);
-			if (currTodo) {
-			    currTodo.title = 'ppp'
+			const editCurrTodo = state.list.find(todo => todo.id === action.payload);
+			if (editCurrTodo) {
+				editCurrTodo.onEdit = !editCurrTodo.onEdit;
 			}
-			console.log(currTodo);
 		},
 		
-		/*saveTodo(state, action: PayloadAction<string>) {
-			state.list = state.list.slice().find();
-		},*/
+		saveTodo(state, action: PayloadAction<{id: string, title: string}>) {
+			const editCurrTodo = state.list.find(todo => todo.id === action.payload.id)
+			if (editCurrTodo) {
+			    editCurrTodo.onEdit = false;
+				editCurrTodo.title = action.payload.title;
+			}
+		},
 	},
 });
 
-export const {addTodo, toggleComplete, removeTodo, editTodo, /*saveTodo*/} = todoSlice.actions;
+export const {addTodo, toggleComplete, removeTodo, editTodo, saveTodo} = todoSlice.actions;
 
 export default todoSlice.reducer;

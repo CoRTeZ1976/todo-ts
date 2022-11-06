@@ -14,7 +14,7 @@ function App() {
   const handleAction = () => {
     if (text.trim().length) {
         dispatch(addTodo(text))
-      setText('');
+        setText('');
     }
   }
   
@@ -23,7 +23,7 @@ function App() {
           <Box
               display='flex'
               flexDirection='column'
-              width='50%'
+              width='30%'
           >
               <Header/>
               <NewTodoForm
@@ -31,7 +31,7 @@ function App() {
                   updateText={setText}
                   handleAction={handleAction}
               />
-              <TodoList/>
+              <TodoList />
           </Box>
       </div>
   );

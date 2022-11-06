@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../../hook";
-import { removeTodo, toggleComplete, editTodo} from "../../store/todoSlice";
+import { editTodo, removeTodo, Todo, toggleComplete } from "../../store/todoSlice";
 import React from "react";
 import { Box, Checkbox, IconButton, Paper, Stack, Typography } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
