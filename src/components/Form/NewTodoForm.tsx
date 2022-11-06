@@ -13,12 +13,14 @@ const NewTodoForm: React.FC<NewTodoForm> = ({value, updateText, handleAction}) =
 		<Paper
 			elevation={2}
 			sx={{
-				width: '100%',
+				width: 'auto',
+				maxWidth: '100%',
 				padding: '25px 30px',
 				borderRadius: 2,
 				display: 'flex',
 				justifyContent: 'space-between',
 				alignContent: 'center',
+				alignItems: 'center',
 				gap: 2,
 			}}
 		>
@@ -36,6 +38,7 @@ const NewTodoForm: React.FC<NewTodoForm> = ({value, updateText, handleAction}) =
 				startIcon={<Add/>}
 				onClick={handleAction}
 				variant="outlined"
+				size='large'
 			>Add</Button>
 		</Paper>
 	);

@@ -17,15 +17,18 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, title, completed}) => {
 		<Paper
 			elevation={2}
 			sx={{
+				width: 'auto',
+				maxWidth: '100%',
 				marginTop: '15px',
-				width: '100%',
 				padding: '20px 28px',
 				borderRadius: 2,
 				display: 'flex',
 				justifyContent: 'space-between',
 				alignContent: 'center',
+				alignItems: 'center',
 				gap: 2,
 				opacity: completed ? 0.5 : 1,
+				wordWrap: 'break-word',
 			}}
 		>
 			<Box

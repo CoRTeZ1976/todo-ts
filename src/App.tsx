@@ -23,7 +23,7 @@ function App() {
           <Box
               display='flex'
               flexDirection='column'
-              width='30%'
+              width='40%'
           >
               <Header/>
               <NewTodoForm
